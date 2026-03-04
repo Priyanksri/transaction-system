@@ -1,0 +1,23 @@
+const mongoose = require('mongoose');
+
+const orderSchema = new mongoose.Schema({
+    client_id: {
+        type: String,
+        required: true
+    },
+    amount: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'fulfilled', 'failed'],
+        default: 'pending'
+    },
+    fulfillment_id: {
+        type: String,
+        default: null
+    }
+}, { timestamps: true });
+
+module.exports = mongoose.models.Order || mongoose.model('Order', orderSchema);
